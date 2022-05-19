@@ -7,10 +7,13 @@ export default createStore({
     cart: [],
     currentProduct: {},
     ingredients: [],
+    counter: 0,
+    total: 0,
   },
   getters: {
     getProducts: (state) => state.products,
     getCurrentProduct: (state) => state.currentProduct,
+    getIngredients: (state) => state.ingredients,
   },
   actions: {
     async fetchProducts({ commit }) {
@@ -27,8 +30,30 @@ export default createStore({
         const productFound = await axios.get(
           `http://127.0.0.1:8000/api/products/${productId}`
         );
-        console.log(productFound.data);
+        //console.log(productFound.data);
         commit("SET_CURRENT_PRODUCT", productFound.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async setIngredients({ commit }, productId) {
+      try {
+        const productFound = await axios.get(
+          `http://127.0.0.1:8000/api/products/${productId}`
+        );
+        console.log(productFound.data.ingredients);
+        commit("SET_INGREDIENTS", productFound.data.ingredients);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async setOneIngredients({ commit }, productId) {
+      try {
+        const productFound = await axios.get(
+          `http://127.0.0.1:8000/api/products/${productId}`
+        );
+        console.log(productFound.data.ingredients);
+        commit("SET_INGREDIENTS", productFound.data.ingredients);
       } catch (error) {
         console.log(error);
       }
@@ -40,6 +65,9 @@ export default createStore({
     },
     SET_CURRENT_PRODUCT(state, productId) {
       state.currentProduct = productId;
+    },
+    SET_INGREDIENTS(state, productId) {
+      state.ingredients = productId;
     },
   },
   modules: {},

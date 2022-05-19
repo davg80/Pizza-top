@@ -1,7 +1,7 @@
 <template>
   <section class="product">
     <h1>{{ titleProduct }} : {{ product.name }}</h1>
-    <CardProduct :ingredients="product.ingredients" />
+    <CardProduct :ingredients="ingredients" />
   </section>
 </template>
 
@@ -20,8 +20,13 @@ const product = computed(() => {
   return store.getters.getCurrentProduct;
 });
 
+const ingredients = computed(() => {
+  return store.getters.getIngredients;
+});
+
 onMounted(() => {
   store.dispatch("setCurrentProduct", route.params.id);
+  store.dispatch("setIngredients", route.params.id);
 });
 </script>
 

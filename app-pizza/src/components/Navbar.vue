@@ -2,6 +2,10 @@
   <nav class="navbar">
     <router-link to="/">Accueil</router-link>
     <router-link to="/contact">Contact</router-link>
+    <div class="cart-orders">
+      <img src="../assets/icons/shopping-cart.png" alt="Panier de commandes" />
+      <span class="cart-count">0</span>
+    </div>
   </nav>
 </template>
 
@@ -13,6 +17,8 @@ export default {
 
 <style scoped lang="scss">
 .navbar {
+  display: flex;
+  align-items: center;
   padding: 30px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -25,6 +31,23 @@ export default {
 
     &.router-link-exact-active {
       color: var(--main-red);
+    }
+  }
+
+  .cart-orders {
+    position: relative;
+    img {
+      width: 25px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -12px;
+      right: -5px;
+      background: var(--main-red);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      color: var(--main-white);
     }
   }
 }

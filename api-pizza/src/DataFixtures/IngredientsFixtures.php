@@ -27,7 +27,7 @@ class IngredientsFixtures extends Fixture
 		for($i=1; $i<= 10; $i++){
 			$ingredient = new Ingredient();
 			$ingredient->setName($this->faker->word())
-				->setPrice($this->faker->randomFloat(2, 0.5, 10));
+				->setPrice($this->faker->randomFloat(2, 0.5, 3));
 			$entityManager->persist($ingredient);
 		}
 	}

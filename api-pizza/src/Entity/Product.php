@@ -41,12 +41,12 @@ class Product
 	use ResourceId;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read'])]
+    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read', 'products_item:write'])]
     private ?string $name;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     #[ORM\JoinTable(name: 'ingredients_products')]
-    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read'])]
+    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read', 'products_item:write'])]
     private Collection $ingredients;
 
     public function __construct()
