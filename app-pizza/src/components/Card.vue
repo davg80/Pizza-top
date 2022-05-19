@@ -39,14 +39,19 @@ export default {
     width: 100%;
     padding: 18px 0px;
     cursor: pointer;
+    font-size: 18px;
     background: var(--main-green);
     color: var(--main-white);
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     &:hover {
-      color: var(--main-green);
-      background: var(--main-white);
+      color: var(--main-white);
+      background: var(--main-green-light);
     }
+  }
+  &:hover {
+    scale: 1.02;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }
 </style>

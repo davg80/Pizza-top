@@ -1,14 +1,13 @@
 <template>
-  <div class="product">
+  <section class="product">
     <h1>{{ titleProduct }} : {{ product.name }}</h1>
-    <ul v-for="ingredient in product.ingredients" :key="ingredient.id">
-      <li>{{ ingredient.name }} {{ ingredient.price }} €</li>
-    </ul>
-  </div>
+    <CardProduct :ingredients="product.ingredients" />
+  </section>
 </template>
 
 <script setup>
 // @ is an alias to /src
+import CardProduct from "@/components/CardProduct";
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -26,4 +25,17 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.product {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  h1 {
+    text-align: center;
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+}
+</style>
