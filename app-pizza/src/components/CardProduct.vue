@@ -4,8 +4,8 @@
       <img src="../assets/image1.jpg" alt="Pizza individuelle" />
     </div>
     <div class="list-ingredients-cardProduct">
-      <ul v-for="ingredient in ingredients" :key="ingredient.id">
-        <li @click="choice(ingredient.id)">
+      <ul v-for="ingredient in props.product.ingredients" :key="ingredient.id">
+        <li>
           <strong>{{
             ingredient.name[0].toUpperCase() + ingredient.name.slice(1)
           }}</strong>
@@ -13,43 +13,34 @@
         </li>
       </ul>
       <p class="total-cardProduct">Total: {{ getTotal }} €</p>
-      <button class="btn-cardProduct">Commander</button>
+      <button class="btn-cardProduct" @click="$emit('view-product', product)">
+        Commander
+      </button>
     </div>
   </article>
 </template>
 
-<script>
-export default {
-  props: ["ingredients"],
-  data() {
-    return {
-      removeOfTotal: 0,
-    };
+<script setup>
+import { defineProps, computed } from "vue";
+
+// Props
+const props = defineProps({
+  product: {
+    type: Object,
   },
-  methods: {
-    choice(id) {
-      console.log(this.ingredients.filter((ingredient) => id == ingredient.id));
-      let ingredientRemove = this.ingredients.filter(
-        (ingredient) => id == ingredient.id
-      );
-      this.removeOfTotal = ingredientRemove.price;
-      console.log(this.removeOfTotal);
-      return ingredientRemove;
-    },
-  },
-  computed: {
-    getTotal() {
-      let result = 0;
-      let workForce = 0;
-      for (const key in this.ingredients) {
-        let productPrice = parseFloat(this.ingredients[key].price);
-        result += productPrice;
-      }
-      workForce = result / 2;
-      return (result + workForce).toFixed(2);
-    },
-  },
-};
+});
+
+// computed
+const getTotal = computed(() => {
+  let result = 0;
+  let workForce = 0;
+  for (const key in props.product.ingredients) {
+    let productPrice = parseFloat(props.product.ingredients[key].price);
+    result += productPrice;
+  }
+  workForce = result / 2;
+  return (result + workForce).toFixed(2);
+});
 </script>
 
 <style scoped lang="scss">
@@ -67,7 +58,7 @@ export default {
   }
 
   .list-ingredients-cardProduct {
-    width: 50%;
+    width: 60%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -102,6 +93,15 @@ export default {
         color: var(--main-white);
         background: var(--main-green-light);
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .cardProduct-container {
+    flex-wrap: wrap;
+    .list-ingredients-cardProduct {
+      margin: 10px 0px;
     }
   }
 }

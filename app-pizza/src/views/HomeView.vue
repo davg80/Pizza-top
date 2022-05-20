@@ -17,10 +17,12 @@ import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import Card from "@/components/Card.vue";
 
-const titleProducts = ref("Mes pizzas");
 
+// Initialisation
+const titleProducts = ref("Mes pizzas");
 const store = useStore();
 
+// Computed
 const products = computed(() => {
   return store.getters.getProducts;
 });
