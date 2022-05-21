@@ -15,7 +15,7 @@
             placeholder=" Ex: Ma super pizza"
           />
         </div>
-        <div>
+        <div class="list-ingredients">
           <div
             v-for="ingredient in allIngredients"
             :key="ingredient.id"
@@ -67,7 +67,7 @@
       </form>
     </div>
     <div class="box-tags" v-if="checkedNames.length > 0">
-      <h3>Mes ingrédients:</h3>
+      <h3>Mes choix:</h3>
       <div v-for="name in checkedNames" :key="name">
         <span>{{ name }}</span>
       </div>
@@ -122,6 +122,8 @@ onMounted(() => {
     gap: 20px;
   }
   .left {
+    width: 50%;
+    min-width: 280px;
     height: max-content;
     min-height: 340px;
     padding: 20px;
@@ -156,10 +158,15 @@ onMounted(() => {
     margin: 0px 0px 16px 0px;
   }
 
-  .inputs-group-ingredients {
-    display: flex;
-    label {
-      margin-left: 10px;
+  .list-ingredients {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+    .inputs-group-ingredients {
+      display: flex;
+      label {
+        margin: 10px;
+      }
     }
   }
 

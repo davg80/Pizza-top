@@ -3,18 +3,21 @@
     <div class="contact-content">
       <h1>Contactez nous Pizza Top</h1>
       <p>
-        Vous avez des questions, des remarques ? Vous pouvez contacter notre
-        service consommateurs :
+        <strong>Vous avez des questions, des remarques ?</strong> Vous pouvez
+        contacter notre service consommateurs :
       </p>
       <p>- par mail à service.consommateurs@pizzaTop.fr</p>
       <p>
-        - par téléphone au 0805 321 025 (appel non surtaxé) du lundi au dimanche
-        de 10h à 18h.
+        - par téléphone au <strong>0805 321 025</strong> (appel non surtaxé)
+        <em>du lundi au dimanche de 10h à 18h.</em>
       </p>
       <p>
         Pour toute question concernant une commande en cours, merci de contacter
-        directement le Pizza Top concerné. Retrouvez les coordonnées des Pizza
-        Top sur notre site : https://www.pizzaTop.fr/huts
+        directement le Pizza Top concerné.
+      </p>
+      <p>
+        Retrouvez les coordonnées des Pizza Top sur notre site :
+        <strong>https://www.pizzaTop.fr</strong>
       </p>
     </div>
   </section>

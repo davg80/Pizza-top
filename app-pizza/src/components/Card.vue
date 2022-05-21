@@ -1,6 +1,8 @@
 <template>
   <div class="card-pizza">
-    <div><img class="card-image" src="../assets/image1.jpg" alt="pizza" /></div>
+    <div>
+      <img class="card-image" src="../assets/image1.jpg" alt="pizza" />
+    </div>
     <h1>{{ namePizza }}</h1>
     <button class="card-btn">Voir plus</button>
   </div>
@@ -11,6 +13,7 @@ export default {
   name: "app-card",
   props: {
     namePizza: String,
+    id: String,
   },
 };
 </script>

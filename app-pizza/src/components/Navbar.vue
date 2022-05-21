@@ -3,10 +3,10 @@
     <router-link to="/">Accueil</router-link>
     <router-link to="/my-pizza">Créer ma Pizza</router-link>
     <router-link to="/contact">Contact</router-link>
-    <div class="cart-orders">
+    <router-link to="/shopping" class="cart-orders">
       <img src="../assets/icons/shopping-cart.png" alt="Panier de commandes" />
       <span class="cart-count">{{ count }}</span>
-    </div>
+    </router-link>
   </nav>
 </template>
 

@@ -9,8 +9,6 @@ export default createStore({
     currentProduct: {},
     ingredientsByProduct: [],
     allIngredients: [],
-    //newProduct: { name: "", ingredients: [] },
-    //newIngredient: {},
     counter: 0,
   },
   getters: {
@@ -60,20 +58,21 @@ export default createStore({
       }
     },
     addProductToCart(context, product) {
-      console.log(context.state.shoppingCart);
+      //console.log(context.state.shoppingCart);
       if (product) {
         const cart = context.state.shoppingCart.find(
           (item) => item.id === product.id
         );
+
         if (!cart) {
-          context.commit("ADD_PRODUCT", product.id);
+          context.commit("ADD_SHOPPING_CART", product);
         } else {
           context.commit("ADD_QUANTITY", cart);
         }
         context.commit("REMOVE_QUANTITY", product);
       }
     },
-    addNewProduct(context, newProduct) {
+    async addNewProduct(context, newProduct) {
       let tmpArray = [];
       let listIngredients = [];
       newProduct.ingredients.forEach((ingredient) => {
@@ -84,9 +83,9 @@ export default createStore({
           listIngredients.push(`/api/ingredients/${ingredient.id}`);
         }
       });
-      console.log({ name: newProduct.name, ingredients: listIngredients });
+      //console.log({ name: newProduct.name, ingredients: listIngredients });
       try {
-        axios.post("http://127.0.0.1:8000/api/products", {
+        await axios.post("http://127.0.0.1:8000/api/products", {
           name: newProduct.name,
           ingredients: listIngredients,
         });
@@ -95,10 +94,13 @@ export default createStore({
       }
       router.push("/");
     },
-    addNewIngredient(context, newIngredient) {
-      console.log(newIngredient);
+    async addNewIngredient(context, newIngredient) {
+      //console.log(newIngredient);
       try {
-        axios.post("http://127.0.0.1:8000/api/ingredients", newIngredient);
+        await axios.post(
+          "http://127.0.0.1:8000/api/ingredients",
+          newIngredient
+        );
       } catch (e) {
         console.log(e);
       }
@@ -110,6 +112,8 @@ export default createStore({
       state.products = products;
     },
     SET_CURRENT_PRODUCT(state, productId) {
+      //console.log(productId);
+      productId.total = parseFloat(setTotal(productId));
       state.currentProduct = productId;
     },
     SET_INGREDIENTS(state, productId) {
@@ -118,9 +122,11 @@ export default createStore({
     SET_ALL_INGREDIENTS(state, ingredients) {
       state.allIngredients = ingredients;
     },
-    ADD_PRODUCT(state, productId) {
+    ADD_SHOPPING_CART(state, product) {
       state.shoppingCart.push({
-        id: productId,
+        id: product.id,
+        name: product.name,
+        total: parseFloat(setTotal(product)).toFixed(2),
         quantity: 1,
       });
       state.counter++;
@@ -128,6 +134,8 @@ export default createStore({
     ADD_QUANTITY(state, product) {
       product.quantity++;
       state.counter++;
+      state.totalOrder +=
+        parseFloat(setTotal(product)).toFixed(2) * parseInt(state.counter);
     },
     REMOVE_QUANTITY(state, product) {
       product.quantity--;
@@ -135,3 +143,14 @@ export default createStore({
   },
   modules: {},
 });
+
+function setTotal(product) {
+  let result = 0;
+  let workForce = 0;
+  for (const key in product.ingredients) {
+    let productPrice = parseFloat(product.ingredients[key].price);
+    result += productPrice;
+  }
+  workForce = result / 2;
+  return (result + workForce).toFixed(2);
+}

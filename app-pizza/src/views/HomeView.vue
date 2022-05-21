@@ -4,7 +4,7 @@
     <div class="container-cards">
       <div v-for="product in products" :key="product.id">
         <router-link :to="{ name: 'Product', params: { id: product.id } }"
-          ><Card :namePizza="product.name"
+          ><Card :namePizza="product.name" :id="product.id"
         /></router-link>
       </div>
     </div>
@@ -13,7 +13,7 @@
 
 <script setup>
 // @ is an alias to /src
-import { ref, onMounted, computed, onUpdated } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import Card from "@/components/Card.vue";
 
@@ -28,10 +28,6 @@ const products = computed(() => {
 });
 
 onMounted(() => {
-  store.dispatch("fetchProducts");
-});
-
-onUpdated(() => {
   store.dispatch("fetchProducts");
 });
 </script>

@@ -12,7 +12,7 @@
           <span>{{ ingredient.price }} €</span>
         </li>
       </ul>
-      <p class="total-cardProduct">Total: {{ total }} €</p>
+      <p class="total-cardProduct">Total: {{ props.product.total }} €</p>
       <button class="btn-cardProduct" @click="addProductToCart(product)">
         Commander
       </button>
@@ -20,8 +20,14 @@
   </article>
 </template>
 
+<script>
+export default {
+  name: "app-CardProduct",
+};
+</script>
+
 <script setup>
-import { defineProps, ref, onMounted } from "vue";
+import { defineProps } from "vue";
 import { useStore } from "vuex";
 
 // Props
@@ -33,22 +39,6 @@ const props = defineProps({
 
 //Initialisation
 const store = useStore();
-const total = ref(0);
-
-onMounted(() => {
-  getTotal();
-});
-
-function getTotal() {
-  let result = 0;
-  let workForce = 0;
-  for (const key in props.product.ingredients) {
-    let productPrice = parseFloat(props.product.ingredients[key].price);
-    result += productPrice;
-  }
-  workForce = result / 2;
-  total.value = (result + workForce).toFixed(2);
-}
 
 function addProductToCart(product) {
   store.dispatch("addProductToCart", product);

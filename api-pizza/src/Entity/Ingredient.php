@@ -34,13 +34,13 @@ class Ingredient
 	use ResourceId;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups(['products_collection:read','products_collection:write', 'products_item:read'])]
+    #[Groups(['ingredients_collection:write','products_item:read', 'products_item:write'])]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read'])]
+    #[Groups(['ingredients_collection:write','products_item:read', 'products_item:write'])]
     #[Assert\NotBlank()]
     #[Assert\Positive()]
     private ?float $price;

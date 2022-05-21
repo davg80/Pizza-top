@@ -49,7 +49,7 @@ class Product
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     #[ORM\JoinTable(name: 'ingredients_products')]
-    #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read', 'products_item:write'])]
+    #[Groups(['products_collection:read', 'products_collection:write','products_item:read', 'products_item:write'])]
     private Collection $ingredients;
 
     public function __construct()
