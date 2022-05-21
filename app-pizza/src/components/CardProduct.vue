@@ -23,6 +23,7 @@
 <script setup>
 import { defineProps, ref, onMounted } from "vue";
 import { useStore } from "vuex";
+
 // Props
 const props = defineProps({
   product: {
@@ -35,6 +36,10 @@ const store = useStore();
 const total = ref(0);
 
 onMounted(() => {
+  getTotal();
+});
+
+function getTotal() {
   let result = 0;
   let workForce = 0;
   for (const key in props.product.ingredients) {
@@ -43,7 +48,7 @@ onMounted(() => {
   }
   workForce = result / 2;
   total.value = (result + workForce).toFixed(2);
-});
+}
 
 function addProductToCart(product) {
   store.dispatch("addProductToCart", product);
@@ -84,6 +89,7 @@ function addProductToCart(product) {
     }
     .total-cardProduct {
       font-weight: bold;
+      margin-bottom: 10px;
     }
     .btn-cardProduct {
       position: absolute;
@@ -108,7 +114,7 @@ function addProductToCart(product) {
   .cardProduct-container {
     flex-wrap: wrap;
     .list-ingredients-cardProduct {
-      min-height: 230px;
+      min-height: 350px;
       margin: 10px 0px;
     }
   }

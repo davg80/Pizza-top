@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 export default createStore({
   state: {
@@ -8,6 +9,8 @@ export default createStore({
     currentProduct: {},
     ingredientsByProduct: [],
     allIngredients: [],
+    //newProduct: { name: "", ingredients: [] },
+    //newIngredient: {},
     counter: 0,
   },
   getters: {
@@ -69,6 +72,37 @@ export default createStore({
         }
         context.commit("REMOVE_QUANTITY", product);
       }
+    },
+    addNewProduct(context, newProduct) {
+      let tmpArray = [];
+      let listIngredients = [];
+      newProduct.ingredients.forEach((ingredient) => {
+        tmpArray.push(ingredient);
+      });
+      context.state.allIngredients.forEach((ingredient) => {
+        if (tmpArray.find((element) => element === ingredient.name)) {
+          listIngredients.push(`/api/ingredients/${ingredient.id}`);
+        }
+      });
+      console.log({ name: newProduct.name, ingredients: listIngredients });
+      try {
+        axios.post("http://127.0.0.1:8000/api/products", {
+          name: newProduct.name,
+          ingredients: listIngredients,
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      router.push("/");
+    },
+    addNewIngredient(context, newIngredient) {
+      console.log(newIngredient);
+      try {
+        axios.post("http://127.0.0.1:8000/api/ingredients", newIngredient);
+      } catch (e) {
+        console.log(e);
+      }
+      router.push("/");
     },
   },
   mutations: {

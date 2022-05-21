@@ -8,6 +8,7 @@ use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[ORM\Table(name: 'ingredients')]
@@ -34,10 +35,14 @@ class Ingredient
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Groups(['products_collection:read','products_collection:write', 'products_item:read'])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
 
     #[ORM\Column(type: 'float')]
     #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read'])]
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
     private ?float $price;
 	
     public function getName(): ?string

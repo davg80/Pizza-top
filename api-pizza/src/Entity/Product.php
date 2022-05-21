@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\Table(name: 'products')]
@@ -42,6 +43,8 @@ class Product
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read', 'products_item:write'])]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $name;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]

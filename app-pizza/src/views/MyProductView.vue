@@ -30,12 +30,9 @@
             <label v-bind:for="ingredient.id">{{ ingredient.name }}</label>
           </div>
         </div>
-        <button class="my-product-btn" @click="onSubmitProduct">
+        <button class="my-product-btn" @click="addNewProduct">
           Valider ma création
         </button>
-        <div v-if="checkedNames.length > 0">
-          Recapitulatifs des ingredients selectionnnés: {{ checkedNames }}
-        </div>
       </form>
       <form class="my-product-form right">
         <div class="form-group">
@@ -64,10 +61,16 @@
             placeholder=" Ex: 4.25"
           />
         </div>
-        <button class="my-product-btn" @click="onSubmitIngredient">
+        <button class="my-product-btn" @click="addNewIngredient">
           Ajouter un nouvel ingrédient
         </button>
       </form>
+    </div>
+    <div class="box-tags" v-if="checkedNames.length > 0">
+      <h3>Mes ingrédients:</h3>
+      <div v-for="name in checkedNames" :key="name">
+        <span>{{ name }}</span>
+      </div>
     </div>
   </section>
 </template>
@@ -90,17 +93,19 @@ const allIngredients = computed(() => {
   return store.getters.getAllIngredients;
 });
 
-function onSubmitProduct() {
-  console.log(checkedNames.value);
-  console.log(newProduct.value);
+function addNewProduct() {
+  store.dispatch("addNewProduct", {
+    name: newProduct.value,
+    ingredients: checkedNames.value,
+  });
 }
 
-function onSubmitIngredient() {
-  //Update nouvel ingredient
-  console.log(newIngredient.value);
-  console.log(newPrice.value);
+function addNewIngredient() {
+  store.dispatch("addNewIngredient", {
+    name: newIngredient.value,
+    price: newPrice.value,
+  });
 }
-
 onMounted(() => {
   store.dispatch("fetchIngredients");
 });
@@ -108,24 +113,27 @@ onMounted(() => {
 <style scoped lang="scss">
 .my-product {
   .forms {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: start;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 20px;
   }
   .left {
+    height: max-content;
     min-height: 340px;
-    margin-top: 35px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
   }
   .right {
-    margin-top: 35px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    height: max-content;
+    min-height: 340px;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
   }
 
   h1 {
@@ -134,12 +142,15 @@ onMounted(() => {
     text-transform: uppercase;
     margin-bottom: 30px;
   }
+  h3 {
+    margin-right: 10px;
+  }
   .form-group {
     margin-top: 15px;
   }
   .label-group-product {
     text-align: start;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     display: block;
     margin: 0px 0px 16px 0px;
@@ -183,6 +194,20 @@ onMounted(() => {
     cursor: pointer;
     &:hover {
       color: var(--main-white);
+    }
+  }
+
+  .box-tags {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    span {
+      color: var(--main-gray);
+      margin-right: 10px;
+      background: var(--main-gray-light);
+      padding: 5px 10px;
+      border-radius: 15px;
     }
   }
 }
