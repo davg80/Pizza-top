@@ -4,22 +4,24 @@ import axios from "axios";
 export default createStore({
   state: {
     products: [],
-    cart: [],
+    shoppingCart: [],
     currentProduct: {},
-    ingredients: [],
+    ingredientsByProduct: [],
+    allIngredients: [],
     counter: 0,
-    total: 0,
   },
   getters: {
     getProducts: (state) => state.products,
     getCurrentProduct: (state) => state.currentProduct,
-    getIngredients: (state) => state.ingredients,
+    getIngredients: (state) => state.ingredientsByProduct,
+    getAllIngredients: (state) => state.allIngredients,
+    getShoppingCart: (state) => state.shoppingCart,
+    getCounter: (state) => state.counter,
   },
   actions: {
     async fetchProducts({ commit }) {
       try {
         const data = await axios.get("http://127.0.0.1:8000/api/products");
-        console.log(data.data["hydra:member"]);
         commit("SET_PRODUCTS", data.data["hydra:member"]);
       } catch (error) {
         console.log(error);
@@ -41,21 +43,31 @@ export default createStore({
         const productFound = await axios.get(
           `http://127.0.0.1:8000/api/products/${productId}`
         );
-        console.log(productFound.data.ingredients);
         commit("SET_INGREDIENTS", productFound.data.ingredients);
       } catch (error) {
         console.log(error);
       }
     },
-    async setOneIngredients({ commit }, productId) {
+    async fetchIngredients({ commit }) {
       try {
-        const productFound = await axios.get(
-          `http://127.0.0.1:8000/api/products/${productId}`
-        );
-        console.log(productFound.data.ingredients);
-        commit("SET_INGREDIENTS", productFound.data.ingredients);
+        const data = await axios.get("http://127.0.0.1:8000/api/ingredients");
+        commit("SET_ALL_INGREDIENTS", data.data["hydra:member"]);
       } catch (error) {
         console.log(error);
+      }
+    },
+    addProductToCart(context, product) {
+      console.log(context.state.shoppingCart);
+      if (product) {
+        const cart = context.state.shoppingCart.find(
+          (item) => item.id === product.id
+        );
+        if (!cart) {
+          context.commit("ADD_PRODUCT", product.id);
+        } else {
+          context.commit("ADD_QUANTITY", cart);
+        }
+        context.commit("REMOVE_QUANTITY", product);
       }
     },
   },
@@ -67,7 +79,24 @@ export default createStore({
       state.currentProduct = productId;
     },
     SET_INGREDIENTS(state, productId) {
-      state.ingredients = productId;
+      state.ingredientsByProduct = productId;
+    },
+    SET_ALL_INGREDIENTS(state, ingredients) {
+      state.allIngredients = ingredients;
+    },
+    ADD_PRODUCT(state, productId) {
+      state.shoppingCart.push({
+        id: productId,
+        quantity: 1,
+      });
+      state.counter++;
+    },
+    ADD_QUANTITY(state, product) {
+      product.quantity++;
+      state.counter++;
+    },
+    REMOVE_QUANTITY(state, product) {
+      product.quantity--;
     },
   },
   modules: {},

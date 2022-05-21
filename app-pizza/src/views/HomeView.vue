@@ -17,9 +17,9 @@ import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import Card from "@/components/Card.vue";
 
-
 // Initialisation
-const titleProducts = ref("Mes pizzas");
+
+const titleProducts = ref("Les pizzas");
 const store = useStore();
 
 // Computed
@@ -38,7 +38,10 @@ onMounted(() => {
   align-items: center;
   flex-direction: column;
   h1 {
-    margin-bottom: 35px;
+    text-align: center;
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
   }
 }
 .container-cards {

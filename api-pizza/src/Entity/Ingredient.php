@@ -12,7 +12,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[ORM\Table(name: 'ingredients')]
 #[HasLifecycleCallbacks]
-#[ApiResource()]
+#[ApiResource(	collectionOperations: [
+		'get',
+		'post' => [
+			'normalization_context' => ['groups' => 'ingredients_collection:write']
+		]
+	],
+	itemOperations: [
+		'get' ,
+		'put',
+		'delete'
+	],
+	attributes: [
+		'pagination_enabled' => false
+	]
+)]
 class Ingredient
 {
 	

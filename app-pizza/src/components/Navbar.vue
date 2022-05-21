@@ -1,18 +1,30 @@
 <template>
   <nav class="navbar">
     <router-link to="/">Accueil</router-link>
+    <router-link to="/my-pizza">Créer ma Pizza</router-link>
     <router-link to="/contact">Contact</router-link>
     <div class="cart-orders">
       <img src="../assets/icons/shopping-cart.png" alt="Panier de commandes" />
-      <span class="cart-count">0</span>
+      <span class="cart-count">{{ count }}</span>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "AppNavbar",
+  name: "app-navbar",
 };
+</script>
+
+<script setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+// Computed
+const count = computed(() => {
+  return store.getters.getCounter;
+});
 </script>
 
 <style scoped lang="scss">

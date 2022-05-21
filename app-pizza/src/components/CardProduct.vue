@@ -12,8 +12,8 @@
           <span>{{ ingredient.price }} €</span>
         </li>
       </ul>
-      <p class="total-cardProduct">Total: {{ getTotal }} €</p>
-      <button class="btn-cardProduct" @click="$emit('view-product', product)">
+      <p class="total-cardProduct">Total: {{ total }} €</p>
+      <button class="btn-cardProduct" @click="addProductToCart(product)">
         Commander
       </button>
     </div>
@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue";
-
+import { defineProps, ref, onMounted } from "vue";
+import { useStore } from "vuex";
 // Props
 const props = defineProps({
   product: {
@@ -30,8 +30,11 @@ const props = defineProps({
   },
 });
 
-// computed
-const getTotal = computed(() => {
+//Initialisation
+const store = useStore();
+const total = ref(0);
+
+onMounted(() => {
   let result = 0;
   let workForce = 0;
   for (const key in props.product.ingredients) {
@@ -39,8 +42,12 @@ const getTotal = computed(() => {
     result += productPrice;
   }
   workForce = result / 2;
-  return (result + workForce).toFixed(2);
+  total.value = (result + workForce).toFixed(2);
 });
+
+function addProductToCart(product) {
+  store.dispatch("addProductToCart", product);
+}
 </script>
 
 <style scoped lang="scss">
@@ -101,6 +108,7 @@ const getTotal = computed(() => {
   .cardProduct-container {
     flex-wrap: wrap;
     .list-ingredients-cardProduct {
+      min-height: 230px;
       margin: 10px 0px;
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <section class="product">
     <h1>{{ titleProduct }} : {{ product.name }}</h1>
-    <CardProduct :product="product" v-on:click="viewProduct(product)" />
+    <CardProduct :product="product" />
   </section>
 </template>
 
@@ -13,8 +13,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 // Initialisation
-const titleProduct = ref("Ma pizza");
-let productChoice = ref({});
+const titleProduct = ref("La pizza");
 const route = useRoute();
 const store = useStore();
 
@@ -22,11 +21,6 @@ const store = useStore();
 const product = computed(() => {
   return store.getters.getCurrentProduct;
 });
-
-function viewProduct(product) {
-  productChoice = product;
-  console.log(productChoice);
-}
 
 onMounted(() => {
   store.dispatch("setCurrentProduct", route.params.id);

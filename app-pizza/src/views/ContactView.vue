@@ -33,7 +33,9 @@
     text-align: start;
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      font-size: 35px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
     }
     p {
       margin-bottom: 10px;
