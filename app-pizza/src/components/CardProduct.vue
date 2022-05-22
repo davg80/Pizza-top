@@ -1,7 +1,7 @@
 <template>
   <article class="cardProduct-container">
     <div class="image-cardProduct">
-      <img src="../assets/image1.jpg" alt="Pizza individuelle" />
+      <img src="../assets/images/image1.jpeg" alt="Pizza individuelle" />
     </div>
     <div class="list-ingredients-cardProduct">
       <ul v-for="ingredient in props.product.ingredients" :key="ingredient.id">
@@ -47,25 +47,28 @@ function addProductToCart(product) {
 
 <style scoped lang="scss">
 .cardProduct-container {
-  width: 62%;
+  width: 60%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-  .image-cardProduct img {
-    width: 100%;
-    height: max-content;
+  background: #ffffff;
+  .image-cardProduct {
+    width: 50%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .list-ingredients-cardProduct {
-    width: 60%;
+    width: 50%;
     display: flex;
     align-items: center;
     flex-direction: column;
     ul {
-      width: 80%;
+      width: 60%;
       list-style-type: none;
       li {
         display: flex;
@@ -87,7 +90,7 @@ function addProductToCart(product) {
       bottom: 0;
       border: none;
       width: 100%;
-      padding: 18px 0px;
+      padding: 10px 0px;
       cursor: pointer;
       font-size: 18px;
       background: var(--main-green);
@@ -100,12 +103,22 @@ function addProductToCart(product) {
   }
 }
 
-@media only screen and (max-width: 980px) {
+@media only screen and (max-width: 1180px) {
   .cardProduct-container {
-    flex-wrap: wrap;
+    flex-direction: column;
+    .image-cardProduct {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
     .list-ingredients-cardProduct {
-      min-height: 350px;
-      margin: 10px 0px;
+      width: 100%;
+      margin-top: 20px;
+      min-height: max-content;
+      .total-cardProduct {
+        margin-bottom: 60px;
+      }
     }
   }
 }

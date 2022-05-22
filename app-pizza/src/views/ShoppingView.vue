@@ -40,7 +40,11 @@ const totalOrder = computed(() => {
   flex-direction: column;
   margin-bottom: 25px;
   h1 {
-    margin-bottom: 25px;
+    text-align: center;
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color: var(--main-red);
   }
   .shopping-cart {
     display: flex;
@@ -50,6 +54,8 @@ const totalOrder = computed(() => {
     width: 200px;
     margin-bottom: 15px;
     width: 90%;
+    background: #ffffff;
+    padding: 5px 0px;
     &:hover {
       scale: 1.011;
     }

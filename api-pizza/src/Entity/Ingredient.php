@@ -33,7 +33,7 @@ class Ingredient
 	
 	use ResourceId;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     #[Groups(['ingredients_collection:write','products_item:read', 'products_item:write'])]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]

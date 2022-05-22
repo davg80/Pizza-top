@@ -95,7 +95,8 @@ export default createStore({
       router.push("/");
     },
     async addNewIngredient(context, newIngredient) {
-      //console.log(newIngredient);
+      console.log(newIngredient);
+
       try {
         await axios.post(
           "http://127.0.0.1:8000/api/ingredients",

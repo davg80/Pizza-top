@@ -1,10 +1,14 @@
 <template>
   <div class="home">
     <h1>{{ titleProducts }}</h1>
+    <p class="subtitle-information">
+      Toutes nos Pizzas sont disponibles en version Cheezy Crust ou en pâte Pan
+      ou Classic, en taille Medium ou Xlarge
+    </p>
     <div class="container-cards">
       <div v-for="product in products" :key="product.id">
         <router-link :to="{ name: 'Product', params: { id: product.id } }"
-          ><Card :namePizza="product.name" :id="product.id"
+          ><Card :namePizza="product.name"
         /></router-link>
       </div>
     </div>
@@ -19,7 +23,7 @@ import Card from "@/components/Card.vue";
 
 // Initialisation
 
-const titleProducts = ref("Les pizzas");
+const titleProducts = ref("Nos pizzas");
 const store = useStore();
 
 // Computed
@@ -42,6 +46,11 @@ onMounted(() => {
     font-size: 35px;
     text-transform: uppercase;
     margin-bottom: 30px;
+    color: var(--main-red);
+  }
+
+  .subtitle-information {
+    margin-bottom: 20px;
   }
 }
 .container-cards {
@@ -50,5 +59,9 @@ onMounted(() => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+
+  a {
+    text-decoration: none;
+  }
 }
 </style>

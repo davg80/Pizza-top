@@ -20,10 +20,18 @@ export default {
   padding: 0;
 }
 #app {
+  min-height: 100vh;
+  max-height: 100%;
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background: var(--main-bg-app);
+}
+
+.error {
+  color: var(--main-red);
+  font-size: 12px;
 }
 </style>

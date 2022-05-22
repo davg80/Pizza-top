@@ -34,11 +34,13 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     padding: 10px 20px;
     text-align: start;
+    background: #ffffff;
     h1 {
       text-align: center;
       font-size: 35px;
       text-transform: uppercase;
       margin-bottom: 30px;
+      color: var(--main-red);
     }
     p {
       margin-bottom: 10px;

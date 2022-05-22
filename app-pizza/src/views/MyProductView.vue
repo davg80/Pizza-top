@@ -13,7 +13,9 @@
             v-model="newProduct"
             id="name-product"
             placeholder=" Ex: Ma super pizza"
+            required
           />
+          <span class="error">{{ errorProduct }}</span>
         </div>
         <div class="list-ingredients">
           <div
@@ -29,6 +31,7 @@
             />
             <label v-bind:for="ingredient.id">{{ ingredient.name }}</label>
           </div>
+          <span class="error-list">{{ errorList }}</span>
         </div>
         <button class="my-product-btn" @click="addNewProduct">
           Valider ma création
@@ -45,7 +48,9 @@
             v-model="newIngredient"
             id="new-ingredient"
             placeholder=" Ex: mon nouvel ingredient"
+            required
           />
+          <span class="error">{{ errorIngredient }}</span>
         </div>
         <div class="form-group">
           <label for="new-price" class="label-group-product">
@@ -59,7 +64,9 @@
             v-model="newPrice"
             id="new-price"
             placeholder=" Ex: 4.25"
+            required
           />
+          <span class="error">{{ errorPrice }}</span>
         </div>
         <button class="my-product-btn" @click="addNewIngredient">
           Ajouter un nouvel ingrédient
@@ -85,6 +92,10 @@ const checkedNames = ref([]);
 const newIngredient = ref("");
 const newPrice = ref("");
 const newProduct = ref("");
+const errorProduct = ref("");
+const errorIngredient = ref("");
+const errorList = ref("");
+const errorPrice = ref("");
 // Store
 const store = useStore();
 
@@ -94,17 +105,34 @@ const allIngredients = computed(() => {
 });
 
 function addNewProduct() {
-  store.dispatch("addNewProduct", {
-    name: newProduct.value,
-    ingredients: checkedNames.value,
-  });
+  if (newProduct.value !== "" && checkedNames.value.length > 1) {
+    store.dispatch("addNewProduct", {
+      name: newProduct.value[0].toUpperCase() + newProduct.value.substring(1),
+      ingredients: checkedNames.value,
+    });
+  } else {
+    errorProduct.value = "Les champs ne peuvent pas être vides.";
+    errorList.value = "Vous devez faire minimum 2 choix.";
+  }
 }
 
 function addNewIngredient() {
-  store.dispatch("addNewIngredient", {
-    name: newIngredient.value,
-    price: newPrice.value,
-  });
+  if (
+    newIngredient.value !== "" &&
+    newIngredient.value.length >= 2 &&
+    newPrice.value !== "" &&
+    parseFloat(newPrice.value)
+  ) {
+    store.dispatch("addNewIngredient", {
+      name:
+        newIngredient.value[0].toUpperCase() + newIngredient.value.substring(1),
+      price: newPrice.value,
+    });
+  } else {
+    errorIngredient.value =
+      "Les champs ne peuvent pas être vides (2 caractères min).";
+    errorPrice.value = "Le prix doit être un nombre (Ex: 4.25).";
+  }
 }
 onMounted(() => {
   store.dispatch("fetchIngredients");
@@ -122,20 +150,23 @@ onMounted(() => {
     gap: 20px;
   }
   .left {
-    width: 50%;
+    width: 40%;
     min-width: 280px;
     height: max-content;
     min-height: 340px;
     padding: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
+    background: #ffffff;
   }
   .right {
+    width: 40%;
     height: max-content;
     min-height: 340px;
     padding: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
+    background: #ffffff;
   }
 
   h1 {
@@ -143,24 +174,39 @@ onMounted(() => {
     font-size: 35px;
     text-transform: uppercase;
     margin-bottom: 30px;
+    color: var(--main-red);
   }
   h3 {
     margin-right: 10px;
   }
   .form-group {
-    margin-top: 15px;
+    position: relative;
+    margin-top: 25px;
+    .error {
+      position: absolute;
+      left: 0;
+      bottom: -20px;
+    }
   }
   .label-group-product {
     text-align: start;
     font-size: 18px;
     font-weight: 600;
     display: block;
-    margin: 0px 0px 16px 0px;
+    margin: 0px 0px 25px 0px;
   }
 
   .list-ingredients {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    margin-top: 25px;
+    .error-list {
+      position: absolute;
+      bottom: -20px;
+      color: var(--main-red);
+      font-size: 12px;
+    }
 
     .inputs-group-ingredients {
       display: flex;
@@ -169,18 +215,16 @@ onMounted(() => {
       }
     }
   }
-
   .input-product {
     width: 100%;
     height: 41px;
     background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 0px 0px 6px #0000000d;
-    border: 2px solid #ffffff33;
+    border: 2px solid var(--main-gray-light);
     border-radius: 26px;
     opacity: 1;
     padding: 10px;
-    margin-bottom: 25px;
     &:focus {
       outline: none;
       border: none;

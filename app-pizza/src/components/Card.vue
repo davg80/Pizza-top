@@ -1,9 +1,11 @@
 <template>
   <div class="card-pizza">
     <div>
-      <img class="card-image" src="../assets/image1.jpg" alt="pizza" />
+      <img class="card-image" src="../assets/images/image1.jpeg" alt="pizza" />
     </div>
-    <h1>{{ namePizza }}</h1>
+    <h1>
+      {{ props.namePizza[0].toUpperCase() + props.namePizza.substring(1) }}
+    </h1>
     <button class="card-btn">Voir plus</button>
   </div>
 </template>
@@ -11,11 +13,21 @@
 <script>
 export default {
   name: "app-card",
-  props: {
-    namePizza: String,
-    id: String,
-  },
 };
+</script>
+
+<script setup>
+import { defineProps, onMounted, ref } from "vue";
+const randomImage = ref("");
+const props = defineProps({
+  namePizza: {
+    type: String,
+  },
+});
+
+onMounted(() => {
+  return (randomImage.value = "image1");
+});
 </script>
 
 <style scoped lang="scss">
@@ -25,7 +37,12 @@ export default {
   height: 300px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 5px;
+  background: var(--main-white);
   h1 {
+    text-align: start;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 18px;
     color: var(--main-gray);
   }
   .card-image {

@@ -1,6 +1,6 @@
 <template>
   <div class="item-image">
-    <img src="../assets/image1.jpg" alt="Visuel de la pizza" />
+    <img src="../assets/images/image1.jpeg" alt="Visuel de la pizza" />
   </div>
   <div class="item-name">
     <h2><span>name:</span> {{ props.item.name }}</h2>
