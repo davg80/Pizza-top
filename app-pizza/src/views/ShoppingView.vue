@@ -19,7 +19,7 @@
 // @ is an alias to /src
 import { useStore } from "vuex";
 import { computed } from "vue";
-import Item from "@/components/item";
+import Item from "@/components/Item";
 import { useToast } from "vue-toastification";
 const store = useStore();
 const toast = useToast();

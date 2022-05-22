@@ -34,7 +34,7 @@ onMounted(() => {
   position: relative;
   width: 250px;
   height: 300px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 5px;
   background: var(--main-white);
   h1 {
@@ -69,7 +69,7 @@ onMounted(() => {
     }
   }
   &:hover {
-    scale: 1.02;
+    scale: 1.002;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }

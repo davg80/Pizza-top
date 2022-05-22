@@ -1,42 +1,14 @@
 <template>
   <section class="my-product">
     <h1>{{ titleCreateProduct }}</h1>
+    <div class="box-tags" v-if="checkedNames.length > 0">
+      <h3>Mes choix:</h3>
+      <div v-for="name in checkedNames" :key="name">
+        <span>{{ name }}</span>
+      </div>
+    </div>
     <div class="forms">
-      <form class="my-product-form left">
-        <div class="form-group">
-          <label htmlFor="name-product" class="label-group-product">
-            Nom de la pizza</label
-          >
-          <input
-            class="input-product"
-            type="text"
-            v-model="newProduct"
-            id="name-product"
-            placeholder=" Ex: Ma super pizza"
-            required
-          />
-          <span class="error">{{ errorProduct }}</span>
-        </div>
-        <div class="list-ingredients">
-          <div
-            v-for="ingredient in allIngredients"
-            :key="ingredient.id"
-            class="inputs-group-ingredients"
-          >
-            <input
-              type="checkbox"
-              v-bind:id="ingredient.id"
-              v-bind:value="ingredient.name"
-              v-model="checkedNames"
-            />
-            <label v-bind:for="ingredient.id">{{ ingredient.name }}</label>
-          </div>
-          <span class="error-list">{{ errorList }}</span>
-        </div>
-        <button class="my-product-btn" @click="addNewProduct">
-          Valider ma création
-        </button>
-      </form>
+      <ProductForm @updateNames="updateNames" />
       <form class="my-product-form right">
         <div class="form-group">
           <label for="new-ingredient" class="label-group-product">
@@ -73,45 +45,29 @@
         </button>
       </form>
     </div>
-    <div class="box-tags" v-if="checkedNames.length > 0">
-      <h3>Mes choix:</h3>
-      <div v-for="name in checkedNames" :key="name">
-        <span>{{ name }}</span>
-      </div>
-    </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import ProductForm from "@/components/ProductForm";
+import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
+
 // Initialisation
 const titleCreateProduct = ref("Créer ma pizza");
 const checkedNames = ref([]);
 const newIngredient = ref("");
 const newPrice = ref("");
-const newProduct = ref("");
-const errorProduct = ref("");
 const errorIngredient = ref("");
-const errorList = ref("");
 const errorPrice = ref("");
+
 // Store
 const store = useStore();
-// Computed
-const allIngredients = computed(() => {
-  return store.getters.getAllIngredients;
-});
-function addNewProduct() {
-  if (newProduct.value !== "" && checkedNames.value.length > 1) {
-    store.dispatch("addNewProduct", {
-      name: newProduct.value[0].toUpperCase() + newProduct.value.substring(1),
-      ingredients: checkedNames.value,
-    });
-  } else {
-    errorProduct.value = "Les champs ne peuvent pas être vides.";
-    errorList.value = "Vous devez faire minimum 2 choix.";
-  }
+
+function updateNames(name) {
+  checkedNames.value.push(name);
 }
+
 function addNewIngredient() {
   if (
     newIngredient.value !== "" &&
@@ -240,7 +196,7 @@ onMounted(() => {
   }
   .box-tags {
     width: 100%;
-    margin-top: 20px;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
     span {

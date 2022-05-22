@@ -3,6 +3,7 @@ import axios from "axios";
 import router from "@/router";
 import { useToast } from "vue-toastification";
 const toast = useToast();
+import setTotal from "./function";
 
 export default createStore({
   state: {
@@ -182,14 +183,3 @@ export default createStore({
   },
   modules: {},
 });
-
-function setTotal(product) {
-  let result = 0;
-  let workForce = 0;
-  for (const key in product.ingredients) {
-    let productPrice = parseFloat(product.ingredients[key].price);
-    result += productPrice;
-  }
-  workForce = result / 2;
-  return (result + workForce).toFixed(2);
-}

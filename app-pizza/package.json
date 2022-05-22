@@ -9,6 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "eslint": "eslint",
+    "test": "jest",
     "template:check": "vue-tsc --noEmit --target es2017",
     "format": "prettier --write \"{src,tests}/**/*.+(vue|ts|js|json|html|css)\"",
     "postinstall": "npm run format"

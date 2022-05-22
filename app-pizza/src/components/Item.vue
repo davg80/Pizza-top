@@ -42,6 +42,9 @@ const props = defineProps({
     type: Object,
   },
 });
+
+console.log(props.item);
+
 // Initialisation
 const store = useStore();
 //methods
