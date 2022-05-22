@@ -35,6 +35,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 	],
 	attributes: [
 	'pagination_enabled' => false
+	],
+	order: [
+		'id' => "DESC"
 	]
 )]
 class Product

@@ -71,7 +71,19 @@ export default createStore({
         } else {
           context.commit("ADD_QUANTITY", cart);
         }
-        context.commit("REMOVE_QUANTITY", product);
+      }
+    },
+    removeProductToCart(context, product) {
+      if (product) {
+        const cart = context.state.shoppingCart.find(
+          (item) => item.id === product.id
+        );
+        if (cart) {
+          context.commit("REMOVE_SHOPPING_CART", product);
+          toast.success("Votre pizza a été supprimé de votre panier.");
+        } else {
+          toast.error("Impossible de supprimer votre panier.");
+        }
       }
     },
     async addNewProduct(context, newProduct) {
@@ -113,6 +125,12 @@ export default createStore({
         toast.error("Erreur lors de l'enregistrement du nouvel ingrédient.");
       }
     },
+    plusCounter(context) {
+      context.commit("PLUS_COUNTER");
+    },
+    minusCounter(context) {
+      context.commit("MINUS_COUNTER");
+    },
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -144,8 +162,18 @@ export default createStore({
       state.totalOrder +=
         parseFloat(setTotal(product)).toFixed(2) * parseInt(state.counter);
     },
-    REMOVE_QUANTITY(state, product) {
-      product.quantity--;
+    PLUS_COUNTER(state) {
+      state.counter++;
+    },
+    MINUS_COUNTER(state) {
+      state.counter--;
+    },
+    REMOVE_SHOPPING_CART(state, product) {
+      let itemFiltered = state.shoppingCart.filter(
+        (item) => item.id != product.id
+      );
+      state.shoppingCart = itemFiltered;
+      state.counter = 0;
     },
   },
   modules: {},
