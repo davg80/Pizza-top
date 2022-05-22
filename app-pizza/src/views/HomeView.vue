@@ -51,6 +51,7 @@ onMounted(() => {
 
   .subtitle-information {
     margin-bottom: 20px;
+    width: 80%;
   }
 }
 .container-cards {

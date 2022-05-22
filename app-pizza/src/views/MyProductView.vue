@@ -151,9 +151,8 @@ onMounted(() => {
   }
   .left {
     width: 40%;
-    min-width: 280px;
-    height: max-content;
-    min-height: 340px;
+    min-width: max-content;
+    min-height: 400px;
     padding: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
@@ -161,8 +160,8 @@ onMounted(() => {
   }
   .right {
     width: 40%;
-    height: max-content;
-    min-height: 340px;
+    min-width: max-content;
+    min-height: 400px;
     padding: 20px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;

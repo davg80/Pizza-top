@@ -1,17 +1,17 @@
 <template>
-  <div class="item-image">
+  <div class="item-image item">
     <img src="../assets/images/image1.jpeg" alt="Visuel de la pizza" />
   </div>
-  <div class="item-name">
+  <div class="item-name item">
     <h2><span>name:</span> {{ props.item.name }}</h2>
   </div>
-  <div class="item-quantity">
+  <div class="item-quantity item">
     <p><span>quantité:</span> {{ props.item.quantity }}</p>
   </div>
-  <div class="item-total">
+  <div class="item-total item">
     <p><span>prix:</span> {{ props.item.total }} €</p>
   </div>
-  <div class="item-total">
+  <div class="item-total item">
     <p><span>Total:</span> {{ props.item.total * props.item.quantity }} €</p>
   </div>
 </template>
@@ -36,8 +36,16 @@ console.log(props);
 </script>
 
 <style scoped lang="scss">
-.item-image img {
-  width: 200px;
+.item {
+  margin: 10px;
+}
+
+.item-image {
+  width: 350px;
+  display: flex;
+  img {
+    width: 100%;
+  }
 }
 span {
   font-weight: normal;

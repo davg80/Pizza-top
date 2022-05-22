@@ -38,7 +38,6 @@ const totalOrder = computed(() => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 25px;
   h1 {
     text-align: center;
     font-size: 35px;
@@ -51,14 +50,18 @@ const totalOrder = computed(() => {
     justify-content: space-around;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    width: 200px;
+    width: 65%;
     margin-bottom: 15px;
-    width: 90%;
     background: #ffffff;
-    padding: 5px 0px;
     &:hover {
       scale: 1.011;
     }
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .shopping-cart {
+    flex-direction: column;
   }
 }
 </style>

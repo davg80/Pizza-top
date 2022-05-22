@@ -41,7 +41,7 @@ class Product
 {
 	use ResourceId;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, unique: true)]
     #[Groups(['products_collection:read', 'products_collection:write', 'products_item:read', 'products_item:write'])]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
