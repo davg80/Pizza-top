@@ -1,8 +1,10 @@
 <template>
-  <section class="shopping">
+  <section>
     <h1>Ma commande</h1>
-    <div class="shopping-cart" v-for="item in shoppingCart" :key="item.id">
-      <Item :item="item" />
+    <div class="shopping">
+      <div class="shopping-cart" v-for="item in shoppingCart" :key="item.id">
+        <Item :item="item" />
+      </div>
     </div>
     <div class="item-name">
       <h2><span>Total des produits:</span> {{ totalOrder.toFixed(2) }} €</h2>
@@ -33,24 +35,24 @@ const totalOrder = computed(() => {
 </script>
 
 <style scoped lang="scss">
+h1 {
+  text-align: center;
+  font-size: 35px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  color: var(--main-red);
+}
 .shopping {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  h1 {
-    text-align: center;
-    font-size: 35px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    color: var(--main-red);
-  }
   .shopping-cart {
     display: flex;
     justify-content: space-around;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    width: 65%;
+    width: max-content;
     margin-bottom: 15px;
     background: #ffffff;
     &:hover {
@@ -59,7 +61,12 @@ const totalOrder = computed(() => {
   }
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 1220px) {
+  .shopping {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
   .shopping-cart {
     flex-direction: column;
   }

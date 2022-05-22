@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import axios from "axios";
 import router from "@/router";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export default createStore({
   state: {
@@ -63,9 +65,9 @@ export default createStore({
         const cart = context.state.shoppingCart.find(
           (item) => item.id === product.id
         );
-
         if (!cart) {
           context.commit("ADD_SHOPPING_CART", product);
+          toast.info("Votre pizza est dans votre panier.");
         } else {
           context.commit("ADD_QUANTITY", cart);
         }
@@ -89,10 +91,12 @@ export default createStore({
           name: newProduct.name,
           ingredients: listIngredients,
         });
+        toast.success("Votre pizza a bien été créé.");
+        router.push("/");
       } catch (e) {
         console.log(e);
+        toast.error("Erreur lors de la création de la pizza.");
       }
-      router.push("/");
     },
     async addNewIngredient(context, newIngredient) {
       console.log(newIngredient);
@@ -102,10 +106,12 @@ export default createStore({
           "http://127.0.0.1:8000/api/ingredients",
           newIngredient
         );
+        toast.success("Votre ingrédient a bien été créé.");
+        router.push("/");
       } catch (e) {
         console.log(e);
+        toast.error("Erreur lors de l'enregistrement du nouvel ingrédient.");
       }
-      router.push("/");
     },
   },
   mutations: {
