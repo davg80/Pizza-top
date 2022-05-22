@@ -11,17 +11,14 @@ import CardProduct from "@/components/CardProduct";
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-
 // Initialisation
 const titleProduct = ref("La pizza");
 const route = useRoute();
 const store = useStore();
-
 // Computed
 const product = computed(() => {
   return store.getters.getCurrentProduct;
 });
-
 onMounted(() => {
   store.dispatch("setCurrentProduct", route.params.id);
   store.dispatch("setIngredients", route.params.id);

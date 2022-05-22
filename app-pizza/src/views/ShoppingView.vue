@@ -23,12 +23,10 @@ import Item from "@/components/item";
 import { useToast } from "vue-toastification";
 const store = useStore();
 const toast = useToast();
-
 // Computed
 const shoppingCart = computed(() => {
   return store.getters.getShoppingCart;
 });
-
 const totalOrder = computed(() => {
   let result = 0;
   shoppingCart.value.forEach((item) => {
@@ -37,7 +35,6 @@ const totalOrder = computed(() => {
   });
   return result;
 });
-
 const validateOrder = () => {
   if (shoppingCart.value.length > 0) {
     toast.info("La commande se prépare...");
@@ -71,7 +68,6 @@ h1 {
     }
   }
 }
-
 .item-name {
   .item-btn-validate {
     border: none;
@@ -88,7 +84,6 @@ h1 {
     }
   }
 }
-
 @media only screen and (max-width: 1220px) {
   .shopping {
     flex-direction: row;

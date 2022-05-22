@@ -85,7 +85,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
-
 // Initialisation
 const titleCreateProduct = ref("Créer ma pizza");
 const checkedNames = ref([]);
@@ -98,12 +97,10 @@ const errorList = ref("");
 const errorPrice = ref("");
 // Store
 const store = useStore();
-
 // Computed
 const allIngredients = computed(() => {
   return store.getters.getAllIngredients;
 });
-
 function addNewProduct() {
   if (newProduct.value !== "" && checkedNames.value.length > 1) {
     store.dispatch("addNewProduct", {
@@ -115,7 +112,6 @@ function addNewProduct() {
     errorList.value = "Vous devez faire minimum 2 choix.";
   }
 }
-
 function addNewIngredient() {
   if (
     newIngredient.value !== "" &&
@@ -167,7 +163,6 @@ onMounted(() => {
     border-radius: 10px;
     background: #ffffff;
   }
-
   h1 {
     text-align: center;
     font-size: 35px;
@@ -194,7 +189,6 @@ onMounted(() => {
     display: block;
     margin: 0px 0px 25px 0px;
   }
-
   .list-ingredients {
     position: relative;
     display: grid;
@@ -206,7 +200,6 @@ onMounted(() => {
       color: var(--main-red);
       font-size: 12px;
     }
-
     .inputs-group-ingredients {
       display: flex;
       label {
@@ -230,7 +223,6 @@ onMounted(() => {
       border: 2px solid var(--main-red);
     }
   }
-
   .my-product-btn {
     width: 235px;
     height: 35px;
@@ -246,7 +238,6 @@ onMounted(() => {
       color: var(--main-white);
     }
   }
-
   .box-tags {
     width: 100%;
     margin-top: 20px;

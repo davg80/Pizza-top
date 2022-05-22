@@ -20,7 +20,6 @@ export default {
 import { computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
-
 // Computed
 const count = computed(() => {
   return store.getters.getCounter;
@@ -41,12 +40,10 @@ const count = computed(() => {
     color: #2c3e50;
     text-decoration: none;
     margin-right: 15px;
-
     &.router-link-exact-active {
       color: var(--main-red);
     }
   }
-
   .cart-orders {
     position: relative;
     img {

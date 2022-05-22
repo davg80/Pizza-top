@@ -20,17 +20,13 @@
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import Card from "@/components/Card.vue";
-
 // Initialisation
-
 const titleProducts = ref("Nos pizzas");
 const store = useStore();
-
 // Computed
 const products = computed(() => {
   return store.getters.getProducts;
 });
-
 onMounted(() => {
   store.dispatch("fetchProducts");
 });
@@ -48,7 +44,6 @@ onMounted(() => {
     margin-bottom: 30px;
     color: var(--main-red);
   }
-
   .subtitle-information {
     margin-bottom: 20px;
     width: 80%;
@@ -60,7 +55,6 @@ onMounted(() => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-
   a {
     text-decoration: none;
   }

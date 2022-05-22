@@ -36,7 +36,6 @@ export default {
 // Props
 import { defineProps } from "vue";
 import { useStore } from "vuex";
-
 // Props
 const props = defineProps({
   item: {
@@ -45,17 +44,14 @@ const props = defineProps({
 });
 // Initialisation
 const store = useStore();
-
 //methods
 function incremente(props) {
   store.dispatch("plusCounter");
   return props.item.quantity++;
 }
-
 const deleteProduct = () => {
   return store.dispatch("removeProductToCart", props.item);
 };
-
 function decremente(props) {
   if (props.item.quantity < 1) {
     store.dispatch("removeProductToCart", props.item);
@@ -73,7 +69,6 @@ function decremente(props) {
   width: 150px;
   display: inline;
 }
-
 .item-image {
   width: 250px;
   display: flex;
@@ -90,7 +85,6 @@ span {
     font-weight: bold;
     font-size: 0.875em;
   }
-
   .btn-quantity {
     width: 10px;
     height: 13px;
@@ -101,11 +95,9 @@ span {
     margin-right: 5px;
   }
 }
-
 .item-total p {
   font-weight: bold;
 }
-
 .item-trash {
   img {
     width: 25px;

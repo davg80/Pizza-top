@@ -29,17 +29,14 @@ export default {
 <script setup>
 import { defineProps } from "vue";
 import { useStore } from "vuex";
-
 // Props
 const props = defineProps({
   product: {
     type: Object,
   },
 });
-
 //Initialisation
 const store = useStore();
-
 function addProductToCart(product) {
   store.dispatch("addProductToCart", product);
 }
@@ -61,7 +58,6 @@ function addProductToCart(product) {
       height: 100%;
     }
   }
-
   .list-ingredients-cardProduct {
     width: 50%;
     display: flex;
@@ -102,7 +98,6 @@ function addProductToCart(product) {
     }
   }
 }
-
 @media only screen and (max-width: 1180px) {
   .cardProduct-container {
     flex-direction: column;

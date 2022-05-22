@@ -24,7 +24,6 @@ const props = defineProps({
     type: String,
   },
 });
-
 onMounted(() => {
   return (randomImage.value = "image1");
 });

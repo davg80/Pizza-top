@@ -169,11 +169,15 @@ export default createStore({
       state.counter--;
     },
     REMOVE_SHOPPING_CART(state, product) {
+      let newCount = 0;
       let itemFiltered = state.shoppingCart.filter(
         (item) => item.id != product.id
       );
+      itemFiltered.forEach((item) => {
+        newCount += item.quantity;
+      });
       state.shoppingCart = itemFiltered;
-      state.counter = 0;
+      state.counter = newCount;
     },
   },
   modules: {},
